@@ -1,108 +1,266 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* =========================
+   RESET GENERAL
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* Contenedor del login */
-#formularioInicio {
-    background-color: #ffffff;
-    width: 320px;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    text-align: left;
+/* =========================
+   VARIABLES
+========================= */
+:root{
+    --bg-color:#f5f7fa;
+    --card-color:#ffffff;
+    --primary:#2563eb;
+    --primary-hover:#1d4ed8;
+    --text:#1f2937;
+    --text-soft:#6b7280;
+    --border:#e5e7eb;
+    --shadow:0 4px 12px rgba(0,0,0,0.06);
+
+    --radius:16px;
+    --transition:0.25s ease;
 }
 
-/* Títulos */
-h1 {
-    color: #222;
-    font-size: 20px;
-    margin-top: 10px;
-    text-align: center;
-}
-#logo{
-    width: 100px;
-    display: flex;
-    margin: auto;
+/* =========================
+   BODY
+========================= */
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:var(--bg-color);
+    color:var(--text);
+    line-height:1.8;
+    font-size:18px;
 
-}
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
-h2 {
-    font-size: 16px;
-    color: #444;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-    
+    padding:40px 20px;
 }
 
-/* Lista */
-ol {
-    margin-bottom: 15px;
-    padding-left: 20px;
-    color: #333;
-    text-align: left;
+/* =========================
+   CONTENEDOR
+========================= */
+.container{
+    width:100%;
+    max-width:1100px;
 }
 
-/* Labels */
-label {
-    font-size: 13px;
-    color: #555;
+/* =========================
+   TITULOS
+========================= */
+h1{
+    font-size:3rem;
+    margin-bottom:20px;
+    text-align:center;
+    color:var(--text);
+    font-weight:700;
 }
 
-/* Inputs */
-.entradaTexto {
-    width: 100%;
-    padding: 10px;
-    margin: 6px 0 15px 0;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background-color: #fafafa;
-    outline: none;
-    transition: border 0.2s;
-    transform: 0.3;
+h2{
+    font-size:1.8rem;
+    margin-bottom:15px;
+    color:var(--primary);
 }
 
-.entradaTexto:focus {
-    border-color: #666;
-    background-color: #fff;
-    transform: scale(1.025);
+h3{
+    font-size:1.3rem;
+    margin-bottom:10px;
 }
 
-/* Botón */
-#btnIngresar {
-    width: 100%;
-    padding: 10px;
-    background-color: #64cbc9;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-#btnCerrarSesion {
-    width: 320px;
-    padding: 10px;
-    background-color: #64cbc9;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-top: 20px;
+/* =========================
+   TEXTO
+========================= */
+p{
+    margin-bottom:18px;
+    color:var(--text-soft);
 }
 
-#btnCerrarSesion:hover {
-    background-color: #5bb8b6;
+/* =========================
+   SECCIONES
+========================= */
+section{
+    background:var(--card-color);
+    padding:30px;
+    margin-bottom:30px;
+
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
 }
-#btnIngresar:hover {
-    background-color: #64cbc9;
+
+section:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+   BOTONES
+========================= */
+button,
+.btn{
+    background:var(--primary);
+    color:white;
+
+    border:none;
+    border-radius:12px;
+
+    padding:14px 24px;
+
+    font-size:1rem;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+}
+
+button:hover,
+.btn:hover{
+    background:var(--primary-hover);
+}
+
+/* =========================
+   INPUTS
+========================= */
+input,
+textarea,
+select{
+    width:100%;
+    padding:14px;
+
+    border:2px solid var(--border);
+    border-radius:12px;
+
+    font-size:1rem;
+
+    margin-top:8px;
+    margin-bottom:20px;
+
+    outline:none;
+
+    transition:var(--transition);
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:var(--primary);
+}
+
+/* =========================
+   TARJETAS
+========================= */
+.card{
+    background:white;
+    padding:24px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+}
+
+/* =========================
+   LINKS
+========================= */
+a{
+    color:var(--primary);
+    text-decoration:none;
+    font-weight:600;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+nav{
+    width:100%;
+    background:white;
+
+    padding:18px 30px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:40px;
+}
+
+nav ul{
+    display:flex;
+    gap:20px;
+    list-style:none;
+    flex-wrap:wrap;
+}
+
+nav a{
+    padding:10px 14px;
+    border-radius:10px;
+}
+
+nav a:hover{
+    background:#eef2ff;
+}
+
+/* =========================
+   ACCESIBILIDAD
+========================= */
+
+/* Mejor selección visual */
+::selection{
+    background:#bfdbfe;
+    color:black;
+}
+
+/* Focus visible */
+button:focus,
+input:focus,
+textarea:focus,
+a:focus{
+    outline:3px solid #93c5fd;
+    outline-offset:3px;
+}
+
+/* Reducir movimiento */
+@media(prefers-reduced-motion:reduce){
+    *{
+        transition:none !important;
+        animation:none !important;
+        scroll-behavior:auto !important;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:768px){
+
+    body{
+        font-size:16px;
+        padding:20px;
+    }
+
+    h1{
+        font-size:2.2rem;
+    }
+
+    h2{
+        font-size:1.5rem;
+    }
+
+    section{
+        padding:22px;
+    }
+
+    nav ul{
+        flex-direction:column;
+    }
 }
