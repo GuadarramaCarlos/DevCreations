@@ -12,11 +12,11 @@
 /* ICONO */
 .input-wrapper .icon {
     position: absolute;
-    right: 15px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
     color: #67adc2;
-    font-size: 18px;
+    font-size: 28px;
       pointer-events: none;
     z-index: 2;
 }
