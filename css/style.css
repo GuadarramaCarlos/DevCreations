@@ -1,39 +1,60 @@
-/* ==================================================
-   NEO SOFT MINIMAL
-   Diseño moderno + cognitivo + aesthetic
-================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-:root{
-
-    /* NUEVA PALETA */
-    --bg:#eef2f9;
-    --glass:rgba(255,255,255,0.55);
-
-    --primary:#6d8cff;
-    --secondary:#c7d2fe;
-
-    --text:#111827;
-    --text-light:#6b7280;
-
-    --success:#86efac;
-
-    --border:rgba(255,255,255,0.4);
-
-    --shadow:
-    0 8px 32px rgba(31,38,135,0.08);
-
-    --blur:18px;
-
-    --radius:30px;
-
-    --transition:0.3s ease;
+.input-wrapper {
+    position: relative;
 }
+
+.input-wrapper input {
+    width: 100%;
+    padding: 18px 50px 18px 20px !important;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* ICONO */
+.input-wrapper .icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #67adc2;
+    font-size: 18px;
+      pointer-events: none;
+    z-index: 2;
+}
+
 
 /* =========================
    RESET
 ========================= */
+/* ... (el resto de tu código sigue igual hacia abajo) ... */
+/* =========================
+   RESET
+========================= */
+.logo-img {
+    display: block;
+    margin: 10px auto;  /* la separa del título y la centra */
+    width: 110px;       /* tamaño de la imagen */
+    height: auto;
+}
+.welcome-title {
+    font-size: 37px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+h1 {
+    color: #4157a0;
+}
+
+label {
+    color: #0b1a4b;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.dev-title {
+    margin-top: 27px;
+    text-align: center;
+    color: #738bdb;
+}
 
 *{
     margin:0;
@@ -553,4 +574,42 @@ input:focus{
     .card{
         padding:28px;
     }
+
+    
+}
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    padding-right: 60px !important;
+}
+
+
+.dev-card {
+    max-width: 370px;
+    margin: 20px auto; /* centra horizontalmente */
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+
+.dev-card h2 {
+    margin-bottom: 15px;
+    color: #264ed3;
+}
+
+.dev-card ol {
+    list-style-position: inside;
+    padding: 0;
+    margin-top: 24px;
+}
+
+.dev-card li {
+    margin: 8px 0;
+    font-weight: 500;
 }
