@@ -1,556 +1,158 @@
-/* ==================================================
-   NEO SOFT MINIMAL
-   Diseño moderno + cognitivo + aesthetic
-================================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    min-height: 100vh;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-:root{
-
-    /* NUEVA PALETA */
-    --bg:#eef2f9;
-    --glass:rgba(255,255,255,0.55);
-
-    --primary:#6d8cff;
-    --secondary:#c7d2fe;
-
-    --text:#111827;
-    --text-light:#6b7280;
-
-    --success:#86efac;
-
-    --border:rgba(255,255,255,0.4);
-
-    --shadow:
-    0 8px 32px rgba(31,38,135,0.08);
-
-    --blur:18px;
-
-    --radius:30px;
-
-    --transition:0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* =========================
-   RESET
-========================= */
+/* Contenedor principal */
+#formularioInicio,
+#formularioRegistro {
+    background-color: #ffffff;
+    width: 320px;
+    padding: 30px;
+    border-radius: 10px;
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    text-align: left;
 }
 
-html{
-    scroll-behavior:smooth;
+/* Logo */
+#logo {
+    width: 100px;
+    display: flex;
+    margin: auto;
 }
 
-/* =========================
-   BODY
-========================= */
-
-body{
-
-    font-family:'Poppins',sans-serif;
-
-    background:
-    linear-gradient(
-    135deg,
-    #eef2ff 0%,
-    #f8fafc 50%,
-    #ecfeff 100%
-    );
-
-    min-height:100vh;
-
-    color:var(--text);
-
-    overflow-x:hidden;
-
-    padding:30px;
+/* Titulos */
+h1 {
+    color: #222;
+    font-size: 20px;
+    margin-top: 10px;
+    text-align: center;
 }
 
-/* FONDO DECORATIVO */
-
-body::before,
-body::after{
-
-    content:'';
-
-    position:fixed;
-
-    width:400px;
-    height:400px;
-
-    border-radius:50%;
-
-    z-index:-1;
-
-    filter:blur(90px);
-
-    opacity:0.4;
+h2 {
+    font-size: 16px;
+    color: #444;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
-body::before{
-
-    background:#93c5fd;
-
-    top:-120px;
-    left:-120px;
+/* Labels */
+label {
+    font-size: 13px;
+    color: #555;
+    display: block;
+    margin-bottom: 4px;
 }
 
-body::after{
+/* Inputs */
+.entradaTexto {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0 15px 0;
 
-    background:#c4b5fd;
+    border: 1px solid #ddd;
+    border-radius: 6px;
 
-    bottom:-120px;
-    right:-120px;
+    background-color: #fafafa;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        background-color 0.2s,
+        transform 0.2s;
+
+    box-sizing: border-box;
 }
 
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-    max-width:1200px;
-    margin:auto;
+.entradaTexto:focus {
+    border-color: #64cbc9;
+    background-color: #fff;
+    transform: scale(1.02);
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* Botones */
+#btnIngresar,
+#btnRegistrar,
+#btnCerrarSesion {
+    width: 100%;
 
-nav{
+    padding: 10px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    background-color: #64cbc9;
+    color: white;
 
-    padding:18px 28px;
+    border: none;
+    border-radius: 6px;
 
-    background:var(--glass);
+    font-size: 14px;
+    cursor: pointer;
 
-    backdrop-filter:blur(var(--blur));
-
-    border:1px solid var(--border);
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow);
-
-    margin-bottom:40px;
+    transition:
+        background-color 0.2s,
+        transform 0.2s;
 }
 
-.logo{
-
-    font-size:1.5rem;
-
-    font-weight:700;
-
-    color:var(--primary);
+/* Hover botones */
+#btnIngresar:hover,
+#btnRegistrar:hover,
+#btnCerrarSesion:hover {
+    background-color: #5bb8b6;
+    transform: scale(1.02);
 }
 
-nav ul{
-
-    list-style:none;
-
-    display:flex;
-
-    gap:14px;
+/* Boton cerrar sesion */
+#btnCerrarSesion {
+    margin-top: 20px;
+    width: 320px;
+    border-radius: 10px;
 }
 
-nav a{
+/* Feedback login */
+#mensajeFeedback {
+    margin-top: 12px;
 
-    text-decoration:none;
+    padding: 10px;
 
-    color:var(--text-light);
+    border-radius: 6px;
 
-    font-weight:500;
+    font-size: 13px;
+    text-align: center;
 
-    padding:12px 18px;
-
-    border-radius:16px;
-
-    transition:var(--transition);
+    transition: all 0.3s ease;
 }
 
-nav a:hover{
-
-    background:rgba(109,140,255,0.12);
-
-    color:var(--primary);
+/* Contenedor inputs registro */
+#contenedorInputs {
+    display: flex;
+    flex-direction: column;
 }
 
-/* =========================
-   HERO
-========================= */
-
-.hero{
-
-    min-height:75vh;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-    padding:60px;
-
-    background:var(--glass);
-
-    backdrop-filter:blur(var(--blur));
-
-    border:1px solid var(--border);
-
-    border-radius:40px;
-
-    box-shadow:var(--shadow);
-
-    position:relative;
-
-    overflow:hidden;
+/* Lista */
+ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    color: #333;
+    text-align: left;
 }
 
-.hero::before{
-
-    content:'';
-
-    position:absolute;
-
-    width:250px;
-    height:250px;
-
-    background:
-    linear-gradient(
-    135deg,
-    #a5b4fc,
-    #bfdbfe
-    );
-
-    border-radius:50%;
-
-    top:-80px;
-    right:-80px;
-
-    opacity:0.35;
-
-    filter:blur(20px);
+/* Links */
+a {
+    color: #64cbc9;
+    text-decoration: none;
+    font-size: 13px;
 }
 
-.hero h1{
-
-    font-size:5rem;
-
-    line-height:1.1;
-
-    letter-spacing:-3px;
-
-    margin-bottom:20px;
-
-    max-width:850px;
-}
-
-.hero p{
-
-    font-size:1.2rem;
-
-    color:var(--text-light);
-
-    max-width:650px;
-
-    margin-bottom:35px;
-}
-
-/* =========================
-   BOTONES
-========================= */
-
-button,
-.btn{
-
-    border:none;
-
-    background:
-    linear-gradient(
-    135deg,
-    #6d8cff,
-    #8b5cf6
-    );
-
-    color:white;
-
-    padding:16px 34px;
-
-    border-radius:22px;
-
-    font-size:1rem;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:var(--transition);
-
-    box-shadow:
-    0 10px 30px rgba(109,140,255,0.3);
-}
-
-button:hover,
-.btn:hover{
-
-    transform:
-    translateY(-4px)
-    scale(1.03);
-
-    box-shadow:
-    0 18px 40px rgba(109,140,255,0.4);
-}
-
-/* =========================
-   GRID
-========================= */
-
-.grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(300px,1fr));
-
-    gap:30px;
-
-    margin-top:50px;
-}
-
-/* =========================
-   CARD
-========================= */
-
-.card{
-
-    background:var(--glass);
-
-    backdrop-filter:blur(var(--blur));
-
-    border:1px solid var(--border);
-
-    border-radius:30px;
-
-    padding:35px;
-
-    box-shadow:var(--shadow);
-
-    transition:var(--transition);
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.card::before{
-
-    content:'';
-
-    position:absolute;
-
-    width:120px;
-    height:120px;
-
-    background:
-    linear-gradient(
-    135deg,
-    #bfdbfe,
-    #c4b5fd
-    );
-
-    border-radius:50%;
-
-    top:-40px;
-    right:-40px;
-
-    opacity:0.4;
-}
-
-.card:hover{
-
-    transform:
-    translateY(-8px)
-    rotate(-1deg);
-}
-
-.card h2{
-
-    font-size:1.5rem;
-
-    margin-bottom:15px;
-}
-
-.card p{
-
-    color:var(--text-light);
-
-    line-height:1.9;
-}
-
-/* =========================
-   INPUTS
-========================= */
-
-input,
-textarea,
-select{
-
-    width:100%;
-
-    border:none;
-
-    background:rgba(255,255,255,0.7);
-
-    backdrop-filter:blur(10px);
-
-    padding:18px 20px;
-
-    border-radius:20px;
-
-    margin-top:10px;
-    margin-bottom:20px;
-
-    font-size:1rem;
-
-    color:var(--text);
-
-    transition:var(--transition);
-
-    outline:none;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-
-    background:white;
-
-    box-shadow:
-    0 0 0 5px rgba(109,140,255,0.15);
-}
-
-/* =========================
-   SECTION
-========================= */
-
-section{
-
-    margin-top:60px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-
-    text-align:center;
-
-    margin-top:80px;
-
-    color:var(--text-light);
-
-    font-size:0.95rem;
-}
-
-/* =========================
-   ACCESIBILIDAD COGNITIVA
-========================= */
-
-/* Mejor lectura */
-
-p,
-li{
-    line-height:1.9;
-}
-
-/* Espacios grandes */
-
-.card,
-.hero,
-nav{
-    padding:clamp(20px,4vw,40px);
-}
-
-/* Focus accesible */
-
-a:focus,
-button:focus,
-input:focus{
-
-    outline:none;
-
-    box-shadow:
-    0 0 0 6px rgba(109,140,255,0.2);
-}
-
-/* Selección */
-
-::selection{
-
-    background:#c7d2fe;
-    color:#111827;
-}
-
-/* Reduce motion */
-
-@media(prefers-reduced-motion:reduce){
-
-    *{
-        animation:none !important;
-        transition:none !important;
-        scroll-behavior:auto !important;
-    }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:900px){
-
-    .hero h1{
-        font-size:3.2rem;
-    }
-
-    nav{
-        flex-direction:column;
-        gap:20px;
-    }
-
-    nav ul{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-}
-
-@media(max-width:600px){
-
-    body{
-        padding:18px;
-    }
-
-    .hero{
-        min-height:auto;
-        padding:45px 25px;
-    }
-
-    .hero h1{
-        font-size:2.5rem;
-    }
-
-    .hero p{
-        font-size:1rem;
-    }
-
-    .card{
-        padding:28px;
-    }
+a:hover {
+    text-decoration: underline;
 }

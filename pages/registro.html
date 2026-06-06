@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registro</title>
+
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    <h1>Página de registro</h1>
-    <div>
 
-        
+<body>
+
+    <div id="formularioRegistro">
+
+        <h1>Página de registro</h1>
+
+        <form id="FormularioRegistro">
+
+            <div id="contenedorInputs"></div>
+
+            <label>Selecciona tu rol</label>
+
+            <select id="id_rol" class="entradaTexto">
+                <option value="1">Administrador</option>
+                <option value="2">Profesor</option>
+                <option value="3">Trabajador</option>
+            </select>
+
+            <button type="button" id="btnRegistrar">
+                Registrar
+            </button>
+
+        </form>
+
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase.js"></script>
+
+    <script src="../js/script_registro.js"></script>
+
 </body>
- <script src="../js/script.js"></script>
+
 </html>
