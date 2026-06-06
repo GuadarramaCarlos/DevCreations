@@ -1,158 +1,289 @@
+/* =========================================
+   ESTILOS BASE (Afecta a todas las páginas)
+   ========================================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f5f5f5; /* Fondo claro por defecto para registro y principal */
     margin: 0;
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-/* Contenedor principal */
-#formularioInicio,
+/* =========================================
+   NUEVO DISEÑO: PÁGINA DE LOGIN BIOTRACK
+   ========================================= */
+body.login-bg {
+    /* Fondo degradado oscuro del Figma */
+    background: linear-gradient(135deg, #373b4d 0%, #171923 100%);
+    color: white;
+}
+
+.biotrack-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Lado izquierdo (Logo) */
+.branding-section {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+}
+
+.brand-title {
+    font-size: 52px;
+    margin: 0;
+    color: white;
+    font-weight: bold;
+}
+
+.brand-title span {
+    color: #3b82f6; /* Azul característico de la huella */
+}
+
+.brand-subtitle {
+    font-size: 18px;
+    color: #a0aec0;
+    margin-top: 10px;
+}
+
+/* Lado derecho (Tarjeta Glassmorphism) */
+#formularioInicio {
+    flex: 1;
+    max-width: 420px;
+    /* Efecto cristal / Glassmorphism */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 50px 40px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#formularioInicio h2 {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
+.login-subtitle {
+    color: #cbd5e1;
+    font-size: 13px;
+    margin-bottom: 35px;
+}
+
+/* Inputs estilo BioTrack */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 20px;
+    font-size: 16px;
+    color: #555;
+    z-index: 2;
+}
+
+.input-group .entradaTexto {
+    width: 100%;
+    padding: 14px 15px 14px 50px; /* Padding izquierdo para no tapar el icono */
+    border: none;
+    border-radius: 30px; /* Botones redondos/pill */
+    background-color: #e2e8f0;
+    color: #333;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.input-group .entradaTexto:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 2px #3b82f6;
+    background-color: #ffffff;
+}
+
+/* Botones BioTrack */
+.btn-pill {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btnIngresar {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+#btnIngresar:hover {
+    background-color: #cbd5e1;
+    transform: scale(1.02);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #cbd5e1;
+    margin: 25px 0;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.divider::before { margin-right: 15px; }
+.divider::after { margin-left: 15px; }
+
+#btnHuella {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+#btnHuella:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+}
+
+/* Boton regresar esquina inferior derecha */
+.btn-regresar {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.btn-regresar:hover {
+    opacity: 1;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-regresar .icon-return {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   ESTILOS ANTIGUOS (Para Registro y Principal)
+   ========================================= */
+
 #formularioRegistro {
     background-color: #ffffff;
     width: 320px;
     padding: 30px;
     border-radius: 10px;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
     text-align: left;
-}
-
-/* Logo */
-#logo {
-    width: 100px;
-    display: flex;
-    margin: auto;
-}
-
-/* Titulos */
-h1 {
     color: #222;
-    font-size: 20px;
-    margin-top: 10px;
+}
+
+#formularioRegistro h1,
+body > h1, body > h2 {
+    color: #222;
     text-align: center;
 }
 
-h2 {
-    font-size: 16px;
-    color: #444;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-/* Labels */
-label {
+/* Labels de registro */
+#formularioRegistro label {
     font-size: 13px;
     color: #555;
     display: block;
     margin-bottom: 4px;
 }
 
-/* Inputs */
-.entradaTexto {
+/* Inputs de registro */
+#formularioRegistro .entradaTexto,
+select.entradaTexto {
     width: 100%;
     padding: 10px;
     margin: 6px 0 15px 0;
-
     border: 1px solid #ddd;
     border-radius: 6px;
-
     background-color: #fafafa;
-
     outline: none;
-
-    transition:
-        border-color 0.2s,
-        background-color 0.2s,
-        transform 0.2s;
-
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
     box-sizing: border-box;
 }
 
-.entradaTexto:focus {
-    border-color: #64cbc9;
-    background-color: #fff;
-    transform: scale(1.02);
-}
-
-/* Botones */
-#btnIngresar,
-#btnRegistrar,
-#btnCerrarSesion {
+/* Botones antiguos */
+#btnRegistrar, #btnCerrarSesion {
     width: 100%;
-
     padding: 10px;
-
     background-color: #64cbc9;
     color: white;
-
     border: none;
     border-radius: 6px;
-
     font-size: 14px;
     cursor: pointer;
-
-    transition:
-        background-color 0.2s,
-        transform 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-/* Hover botones */
-#btnIngresar:hover,
-#btnRegistrar:hover,
-#btnCerrarSesion:hover {
+#btnRegistrar:hover, #btnCerrarSesion:hover {
     background-color: #5bb8b6;
     transform: scale(1.02);
 }
 
-/* Boton cerrar sesion */
-#btnCerrarSesion {
-    margin-top: 20px;
-    width: 320px;
-    border-radius: 10px;
+#btnCerrarSesion { 
+    margin-top: 20px; 
+    width: 320px; 
+    border-radius: 10px; 
 }
 
-/* Feedback login */
+/* Feedback general */
 #mensajeFeedback {
     margin-top: 12px;
-
     padding: 10px;
-
     border-radius: 6px;
-
     font-size: 13px;
     text-align: center;
-
     transition: all 0.3s ease;
 }
 
-/* Contenedor inputs registro */
 #contenedorInputs {
     display: flex;
     flex-direction: column;
 }
 
-/* Lista */
 ol {
     margin-bottom: 15px;
     padding-left: 20px;
     color: #333;
     text-align: left;
-}
-
-/* Links */
-a {
-    color: #64cbc9;
-    text-decoration: none;
-    font-size: 13px;
-}
-
-a:hover {
-    text-decoration: underline;
 }

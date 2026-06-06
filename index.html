@@ -3,31 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login BioTrack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
-    <div id="formularioInicio">
-        <h1>Sistema de asistencia</h1>
-        <img src="./assets/Logo" alt="Logo Sistema" id="logo">
+<body class="login-bg">
 
-        <p>Prueba con: admin 12345</p>
+    <div class="biotrack-container">
+        
+        <div class="branding-section">
+            <i class="fa-solid fa-fingerprint" style="font-size: 110px; color: #3b82f6; margin-bottom: 20px;"></i>
+            <h1 class="brand-title">Bio<span>Track</span></h1>
+            <p class="brand-subtitle">Sistema inteligente de gestión de asistencia</p>
+        </div>
 
-        <label>Usuario</label>
-        <input type="text" placeholder="Ingresa tu usuario" class="entradaTexto" id="usuarioInput"> 
-        <label>Contraseña</label>
-        <input type="password" placeholder="Ingresa tu contraseña" class="entradaTexto" id="passInput">
-        
-        <div id="mensajeFeedback" style="margin: 10px 0; min-height: 20px; font-weight: bold;"></div>
-        
-        <button id="btnIngresar">Ingresar</button>
-        <a href="./pages/registro.html" class="label">Regístrate aquí</a>
+        <div id="formularioInicio">
+            <h2>Iniciar Sesión</h2>
+            <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
+
+            <div class="input-group">
+                <i class="fa-solid fa-magnifying-glass input-icon"></i>
+                <input type="text" placeholder="Número de empleado" class="entradaTexto" id="usuarioInput"> 
+            </div>
+            
+            <div class="input-group">
+                <i class="fa-solid fa-lock input-icon"></i>
+                <input type="password" placeholder="Contraseña" class="entradaTexto" id="passInput">
+            </div>
+            
+            <div id="mensajeFeedback" style="margin: 10px 0; min-height: 20px; font-weight: bold; border-radius: 20px;"></div>
+            
+            <button id="btnIngresar" class="btn-pill">
+                Ingresar <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+
+            <div class="divider">
+                <span>O continua con</span>
+            </div>
+
+            <button id="btnHuella" class="btn-pill" onclick="window.location.href='./pages/huella.html'">
+                <i class="fa-solid fa-fingerprint" style="margin-right: 8px; font-size: 18px;"></i> Huella digital
+            </button>   
+        </div>
+
     </div>
+
+    <a href="./pages/registro.html" class="btn-regresar">
+        <i class="fa-solid fa-arrow-rotate-left icon-return"></i>
+        Regresar
+    </a>
     
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/supabase.js"></script>
+    <script src="./js/script.js"></script>
 
-<script src="./js/supabase.js"></script>
-
-<script src="./js/script.js"></script>
-
+</body>
 </html>

@@ -21,7 +21,8 @@ async function entrar() {
         mensaje.style.border = "1px solid green";
 
         setTimeout(() => {
-            window.location.href = "pages/principal.html";
+            // CAMBIO AQUÍ: Ahora redirige a landing_admin.html
+            window.location.href = "pages/landing_admin.html";
         }, 1000);
 
     } else {
@@ -43,12 +44,14 @@ function cerrarSesion() {
     localStorage.removeItem("usuario");
     localStorage.removeItem("rol");
 
+    // Redirige al login principal
     window.location.href = "../index.html";
 }
 
+// CAMBIO AQUÍ: Actualizamos la protección de ruta para landing_admin.html
 if (
     !localStorage.getItem("usuario") &&
-    window.location.pathname.includes("principal.html")
+    window.location.pathname.includes("landing_admin.html")
 ) {
     window.location.href = "../index.html";
 }

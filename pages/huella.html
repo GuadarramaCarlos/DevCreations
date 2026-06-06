@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTrack - Escáner de Huella</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+ç        body.login-bg {
+            display: block; /* Sobrescribimos el flex del index para posicionar libremente */
+            overflow: hidden;
+        }
+
+        /* Logo superior izquierdo */
+        .header-logo {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            font-size: 38px;
+            font-weight: bold;
+            color: white;
+            margin: 0;
+        }
+        .header-logo span {
+            color: #3b82f6;
+        }
+
+        /* Contenedor central */
+        .escaner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Círculo de la Huella */
+        .circulo-huella {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 18px solid #3b82f6; /* Azul base */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.4s ease;
+        }
+
+        .circulo-huella i {
+            font-size: 140px;
+            color: #3b82f6;
+            transition: color 0.4s ease;
+        }
+
+        /* Arco blanco giratorio (se oculta al inicio) */
+        .arco-cargando {
+            position: absolute;
+            top: -18px; left: -18px; right: -18px; bottom: -18px;
+            border-radius: 50%;
+            border: 18px solid transparent;
+            border-right-color: white;
+            border-bottom-color: white;
+            animation: girar 1.5s linear infinite;
+            display: none; /* Inicia oculto hasta hacer click */
+        }
+
+        @keyframes girar {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Textos centrales */
+        .texto-principal {
+            margin-top: 50px;
+            font-size: 34px;
+            font-weight: bold;
+            color: #94a3b8; /* Gris azulado del Figma */
+            max-width: 600px;
+            line-height: 1.2;
+            transition: color 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        /* Barra de progreso inferior */
+        .barra-estado {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            width: 420px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .icono-estado {
+            padding: 15px 20px;
+            font-size: 28px;
+            color: #3b82f6;
+            transition: color 0.4s ease;
+        }
+
+        .textos-estado {
+            flex: 1;
+            text-align: left;
+            position: relative;
+            padding: 10px;
+        }
+
+        /* El fondo que se va llenando */
+        .relleno-progreso {
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 0%; /* Inicia en 0% */
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.1s linear;
+        }
+
+        .titulo-estado {
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sub-estado {
+            font-size: 12px;
+            color: #cbd5e1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .porcentaje-estado {
+            background: rgba(255, 255, 255, 0.7);
+            color: black;
+            font-weight: bold;
+            font-size: 22px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+        }
+
+        .estado-exito .circulo-huella {
+            border-color: #22c55e; /* Verde success */
+        }
+        .estado-exito .circulo-huella i,
+        .estado-exito .icono-estado {
+            color: #22c55e;
+        }
+        .estado-exito .arco-cargando {
+            display: none; /* Desaparece el giratorio */
+        }
+        .estado-exito .texto-principal {
+            color: #22c55e;
+        }
+    </style>
+</head>
+<body class="login-bg">
+
+    <h1 class="header-logo">Bio<span>Track</span></h1>
+
+    <div class="escaner-container" id="contenedorPrincipal">
+        
+        <div class="circulo-huella" onclick="iniciarEscaneo()">
+            <i class="fa-solid fa-fingerprint"></i>
+            <div class="arco-cargando" id="animacionGiro"></div>
+        </div>
+
+        <div class="texto-principal" id="textoCentral">
+            Mantenga pulsado el lector de huella 5 segundos
+        </div>
+
+        <div class="barra-estado">
+            <div class="icono-estado">
+                <i class="fa-solid fa-fingerprint"></i>
+            </div>
+            
+            <div class="textos-estado">
+                <div class="relleno-progreso" id="barraRelleno"></div>
+                <div class="titulo-estado" id="tituloBarra">Esperando acción...</div>
+                <div class="sub-estado" id="subBarra">Haz clic en la huella para comenzar</div>
+            </div>
+            
+            <div class="porcentaje-estado" id="numeroPorcentaje">0%</div>
+        </div>
+    </div>
+
+    <script>
+        let estaEscaneando = false;
+
+        function iniciarEscaneo() {
+            // Evitamos que el usuario haga múltiples clics
+            if (estaEscaneando) return;
+            estaEscaneando = true;
+
+            // Mostramos el aro blanco giratorio
+            document.getElementById('animacionGiro').style.display = 'block';
+            
+            // Cambiamos textos iniciales de la barra
+            document.getElementById('tituloBarra').innerText = 'Escaneando Huella ...';
+            document.getElementById('subBarra').innerText = 'No retires tu dedo hasta completar el proceso';
+
+            let progreso = 0;
+            let barra = document.getElementById('barraRelleno');
+            let porcentajeText = document.getElementById('numeroPorcentaje');
+
+            // Simulamos la carga (Sube de 2 en 2 cada 40 milisegundos = 2 segundos aprox)
+            let intervalo = setInterval(() => {
+                progreso += 2;
+                barra.style.width = progreso + '%';
+                porcentajeText.innerText = progreso + '%';
+
+                if (progreso >= 100) {
+                    clearInterval(intervalo);
+                    mostrarExito();
+                }
+            }, 40); 
+        }
+
+        function mostrarExito() {
+            // Agregamos la clase que vuelve todo verde
+            document.getElementById('contenedorPrincipal').classList.add('estado-exito');
+            
+            // Cambiamos el texto principal
+            document.getElementById('textoCentral').innerHTML = 'HUELLA CORRECTA<br>BIENVENIDO';
+            
+            // Cambiamos los textos de la barra inferior
+            document.getElementById('tituloBarra').innerText = 'COMPLETADO...';
+            document.getElementById('subBarra').innerText = 'El proceso tuvo éxito';
+
+            // Damos 1.5 segundos para que el usuario vea la pantalla verde, y luego redirigimos
+            setTimeout(() => {
+                window.location.href = "landing_admin.html";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
