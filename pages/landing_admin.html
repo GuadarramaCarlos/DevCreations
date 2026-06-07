@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        
+        /* =========================================
+           ESTILOS DEL DASHBOARD DE ADMINISTRACIÓN
+           ========================================= */
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #171923 0%, #373b4d 100%);
             color: white;
             height: 100vh;
-            overflow: hidden; 
+            overflow: hidden; /* Evita scroll en toda la página */
         }
 
         .dashboard-container {
@@ -47,7 +49,7 @@
             color: black;
         }
 
-        .brand span { color: #3b82f6; }
+        .brand span { color: #3b82f6; } /* Azul BioTrack */
 
         .menu-nav {
             display: flex;
@@ -85,14 +87,17 @@
 
         .menu-item.active { border-left: 4px solid #3b82f6; }
 
+        /* --- Contenido Principal --- */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             padding: 30px 40px;
             box-sizing: border-box;
-            overflow-y: auto; 
+            overflow-y: auto; /* Scroll solo en esta área si es necesario */
+        }
 
+        /* --- Barra Superior (Topbar) --- */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -133,6 +138,7 @@
             text-align: left;
         }
 
+        /* --- Cabecera de Página --- */
         .header-actions {
             display: flex;
             justify-content: space-between;
@@ -244,17 +250,19 @@
                     <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
                 </a>
                 
-                <a href="#" class="menu-item">
-                    <div class="menu-left"><i class="fa-solid fa-user-group"></i> Reportes</div>
+                <a href="reportes.html" class="menu-item">
+                    <div class="menu-left"><i class="fa-solid fa-chart-column"></i> Reportes</div>
                     <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
                 </a>
                 
-                <a href="#" class="menu-item">
+                <a href="justificaciones.html" class="menu-item">
                     <div class="menu-left"><i class="fa-solid fa-clock"></i> Justificaciones</div>
                     <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
                 </a>
                 
-                <div style="flex-grow: 1;"></div> <a href="#" class="menu-item" id="btnCerrarMenu">
+                <div style="flex-grow: 1;"></div> 
+
+                <a href="#" class="menu-item" id="btnCerrarMenu">
                     <div class="menu-left"><i class="fa-regular fa-circle-xmark"></i> Cerrar Sesión</div>
                     <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
                 </a>
@@ -373,11 +381,9 @@
             document.getElementById("adminName").innerText = usuarioLogueado;
         }
 
-        // Lógica del botón de cerrar sesión
         document.getElementById("btnCerrarMenu").addEventListener("click", function() {
-            localStorage.removeItem("usuario");
-            localStorage.removeItem("rol");
-            window.location.href = "../index.html"; // Regresa al login
+            localStorage.clear();
+            window.location.href = "../index.html"; 
         });
     </script>
 </body>

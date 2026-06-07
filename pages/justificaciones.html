@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTrack - Justificación de Faltas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Estilos base (Heredados) */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #171923 0%, #373b4d 100%); color: white; height: 100vh; overflow: hidden; }
+        .dashboard-container { display: flex; height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background-color: white; color: #333; display: flex; flex-direction: column; padding: 30px 20px; box-sizing: border-box; border-top-right-radius: 20px; border-bottom-right-radius: 20px; z-index: 10; }
+        .brand { font-size: 32px; font-weight: bold; margin-bottom: 50px; display: flex; align-items: center; gap: 10px; color: black; }
+        .brand span { color: #3b82f6; }
+        .menu-nav { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-radius: 12px; color: #64748b; text-decoration: none; font-weight: 600; font-size: 15px; transition: all 0.2s; }
+        .menu-item .menu-left { display: flex; align-items: center; gap: 15px; }
+        .menu-item:hover, .menu-item.active { background-color: #f1f5f9; color: #0f172a; }
+        .menu-item.active { border-left: 4px solid #3b82f6; }
+
+        /* Contenido Principal */
+        .main-content { flex: 1; display: flex; flex-direction: column; padding: 30px 40px; box-sizing: border-box; overflow-y: auto; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .search-bar { background: #f8fafc; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; width: 500px; color: #64748b; }
+        .search-bar input { border: none; background: transparent; outline: none; width: 100%; margin-left: 15px; font-size: 15px; }
+        .profile-area { display: flex; align-items: center; gap: 25px; }
+        .profile-info { display: flex; align-items: center; gap: 10px; }
+
+        /* Header y Botones */
+        .header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .page-title h2 { margin: 0; font-size: 32px; font-weight: bold; }
+        .btn-blue { background-color: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+
+        /* Filtros Blancos (Estilo Justificaciones) */
+        .filtros-container { background: white; padding: 15px 20px; border-radius: 15px; display: flex; gap: 15px; align-items: center; margin-bottom: 25px; color: #333; }
+        .filtro-grupo { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .filtro-grupo label { font-size: 12px; font-weight: bold; color: #333; }
+        .filtro-input { background: #1e293b; border: none; padding: 12px; border-radius: 8px; color: white; outline: none; width: 100%; box-sizing: border-box; font-size: 13px;}
+        
+        /* Tabla Blanca */
+        .table-container { background: white; border-radius: 20px; padding: 20px 30px; color: #333; flex: 1; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow-y: auto; margin-bottom: 20px;}
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        th { font-weight: bold; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding: 15px 10px; font-size: 14px; }
+        td { padding: 15px 10px; font-size: 14px; font-weight: 500; border-bottom: 1px solid #f1f5f9; }
+        
+        /* Estados de tabla */
+        .estado-pendiente { color: #64748b; }
+        .estado-aprobada { color: #22c55e; }
+        .estado-rechazada { color: #dc2626; }
+        .acciones-link { color: #3b82f6; cursor: pointer; text-decoration: none; font-weight: bold; font-size: 13px; }
+        .acciones-link:hover { text-decoration: underline; }
+
+        /* Botón Inferior Derecho */
+        .bottom-action { display: flex; justify-content: flex-end; }
+        .btn-subir { background-color: #1e40af; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; font-size: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="brand">Bio<span>Track</span> <i class="fa-solid fa-fingerprint" style="color: #3b82f6;"></i></div>
+            <nav class="menu-nav">
+                <a href="landing_admin.html" class="menu-item"><div class="menu-left"><i class="fa-solid fa-users"></i> Usuarios</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+                <a href="reportes.html" class="menu-item"><div class="menu-left"><i class="fa-solid fa-chart-column"></i> Reportes</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+                <a href="justificaciones.html" class="menu-item active"><div class="menu-left"><i class="fa-solid fa-clock"></i> Justificaciones</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+                <div style="flex-grow: 1;"></div>
+                <a href="#" class="menu-item" id="btnCerrarMenu"><div class="menu-left"><i class="fa-regular fa-circle-xmark"></i> Cerrar Sesión</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="topbar">
+                <div class="search-bar"><i class="fa-solid fa-bars"></i><input type="text" placeholder="Hinted search text"></div>
+                <div class="profile-area">
+                    <i class="fa-regular fa-bell" style="font-size: 22px;"></i>
+                    <div class="profile-info"><i class="fa-solid fa-circle-user" style="font-size: 38px;"></i>
+                        <div><div style="font-weight: bold; font-size: 15px;" id="adminName">Admin</div><div style="font-size: 12px; color: #cbd5e1;">Administrador</div></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="header-actions">
+                <div class="page-title"><h2>Justificación de faltas</h2></div>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <button class="btn-blue"><i class="fa-solid fa-download"></i> Exportar reporte</button>
+                    <a href="landing_admin.html" style="color: white; text-align: center; text-decoration: none; font-size: 12px;"><i class="fa-solid fa-arrow-rotate-left" style="font-size: 20px; display: block; margin-bottom: 5px;"></i>Regresar</a>
+                </div>
+            </div>
+
+            <div class="filtros-container">
+                <div class="filtro-grupo">
+                    <label>Estado</label>
+                    <select class="filtro-input"><option>Todos los estados</option></select>
+                </div>
+                <div class="filtro-grupo">
+                    <label>Fecha desde</label>
+                    <div style="position: relative;">
+                        <input type="text" class="filtro-input" value="01/05/2026">
+                        <i class="fa-regular fa-calendar" style="position: absolute; right: 10px; top: 12px; color: white;"></i>
+                    </div>
+                </div>
+                <div class="filtro-grupo">
+                    <label>Fecha hasta</label>
+                    <div style="position: relative;">
+                        <input type="text" class="filtro-input" value="29/05/2026">
+                        <i class="fa-regular fa-calendar" style="position: absolute; right: 10px; top: 12px; color: white;"></i>
+                    </div>
+                </div>
+                <div class="filtro-grupo">
+                    <label>División</label>
+                    <select class="filtro-input"><option>Todas las divisiones</option></select>
+                </div>
+                <div class="filtro-grupo" style="justify-content: flex-end;">
+                    <button class="btn-blue" style="margin-top: auto; padding: 12px 15px;"><i class="fa-solid fa-filter"></i> Aplicar filtros</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Núm. de empleado</th>
+                            <th>Fecha de falta</th>
+                            <th>Motivo</th>
+                            <th>Archivo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Juan Perez</td>
+                            <td>U-1001</td>
+                            <td>05/05/2026</td>
+                            <td>Consulta médica</td>
+                            <td>justificante.pdf</td>
+                            <td class="estado-pendiente">Pendiente</td>
+                            <td><a class="acciones-link">Aceptar/Rechazar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Maria López</td>
+                            <td>U-1002</td>
+                            <td>12/05/2026</td>
+                            <td>Enfermedad</td>
+                            <td>justificante.pdf</td>
+                            <td class="estado-aprobada">Aprobada</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Ramos</td>
+                            <td>U-1003</td>
+                            <td>15/05/2026</td>
+                            <td>Asuntos familiares</td>
+                            <td>justificante.pdf</td>
+                            <td class="estado-rechazada">Rechazada</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Ana Torres</td>
+                            <td>U-1004</td>
+                            <td>18/05/2026</td>
+                            <td>Evento académico</td>
+                            <td>justificante.pdf</td>
+                            <td class="estado-pendiente">Pendiente</td>
+                            <td><a class="acciones-link">Aceptar/Rechazar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Luis Garcia</td>
+                            <td>U-1005</td>
+                            <td>25/05/2026</td>
+                            <td>Problemas personales</td>
+                            <td>justificante.pdf</td>
+                            <td class="estado-aprobada">Aprobada</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bottom-action">
+                <button class="btn-subir">Subir Nuevo Justificante</button>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const usuarioLogueado = localStorage.getItem("usuario");
+        if (usuarioLogueado) document.getElementById("adminName").innerText = usuarioLogueado;
+        document.getElementById("btnCerrarMenu").addEventListener("click", () => { localStorage.clear(); window.location.href = "../index.html"; });
+    </script>
+</body>
+</html>

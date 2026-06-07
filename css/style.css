@@ -1,6 +1,4 @@
-/* =========================================
-   ESTILOS BASE (Afecta a todas las páginas)
-   ========================================= */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f5f5; /* Fondo claro por defecto para registro y principal */
@@ -12,9 +10,7 @@ body {
     align-items: center;
 }
 
-/* =========================================
-   NUEVO DISEÑO: PÁGINA DE LOGIN BIOTRACK
-   ========================================= */
+    
 body.login-bg {
     /* Fondo degradado oscuro del Figma */
     background: linear-gradient(135deg, #373b4d 0%, #171923 100%);

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTrack - Reportes y Estadísticas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Estilos base del Dashboard (Heredados del panel admin) */
+        body {
+            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #171923 0%, #373b4d 100%);
+            color: white; height: 100vh; overflow: hidden;
+        }
+        .dashboard-container { display: flex; height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background-color: white; color: #333; display: flex; flex-direction: column; padding: 30px 20px; box-sizing: border-box; border-top-right-radius: 20px; border-bottom-right-radius: 20px; z-index: 10; }
+        .brand { font-size: 32px; font-weight: bold; margin-bottom: 50px; display: flex; align-items: center; gap: 10px; color: black; }
+        .brand span { color: #3b82f6; }
+        .menu-nav { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-radius: 12px; color: #64748b; text-decoration: none; font-weight: 600; font-size: 15px; transition: all 0.2s; }
+        .menu-item .menu-left { display: flex; align-items: center; gap: 15px; }
+        .menu-item i { font-size: 18px; width: 20px; text-align: center; }
+        .menu-item:hover, .menu-item.active { background-color: #f1f5f9; color: #0f172a; }
+        .menu-item.active { border-left: 4px solid #3b82f6; }
+
+        /* Contenido Principal */
+        .main-content { flex: 1; display: flex; flex-direction: column; padding: 30px 40px; box-sizing: border-box; overflow-y: auto; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .search-bar { background: #f8fafc; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; width: 500px; color: #64748b; }
+        .search-bar input { border: none; background: transparent; outline: none; width: 100%; margin-left: 15px; font-size: 15px; }
+        .profile-area { display: flex; align-items: center; gap: 25px; }
+        .profile-info { display: flex; align-items: center; gap: 10px; }
+
+        /* Header de la página */
+        .header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .page-title h2 { margin: 0; font-size: 32px; font-weight: bold; }
+        .btn-blue { background-color: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        
+        /* Filtros Reportes */
+        .filtros-container { background: rgba(255, 255, 255, 0.9); padding: 15px 20px; border-radius: 15px; display: flex; gap: 15px; align-items: center; margin-bottom: 25px; color: #333; }
+        .filtro-grupo { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .filtro-grupo label { font-size: 12px; font-weight: bold; color: #64748b; }
+        .filtro-input { background: #f1f5f9; border: none; padding: 10px; border-radius: 8px; color: #333; outline: none; width: 100%; box-sizing: border-box; }
+        
+        /* Tarjetas KPI */
+        .kpi-row { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 25px; }
+        .kpi-card { background: white; border-radius: 15px; padding: 20px; flex: 1; display: flex; align-items: center; gap: 20px; color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .kpi-icon { width: 50px; height: 50px; border-radius: 12px; background: #1e293b; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .kpi-data p { margin: 0; font-size: 14px; font-weight: bold; color: #64748b; }
+        .kpi-data h3 { margin: 0; font-size: 32px; font-weight: 900; }
+
+        /* Gráficas */
+        .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .chart-card { background: white; border-radius: 15px; padding: 20px; color: #333; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: bold; }
+        .chart-full { grid-column: 1 / -1; } /* Ocupa todo el ancho */
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="brand">Bio<span>Track</span> <i class="fa-solid fa-fingerprint" style="color: #3b82f6;"></i></div>
+            <nav class="menu-nav">
+                <a href="landing_admin.html" class="menu-item"><div class="menu-left"><i class="fa-solid fa-users"></i> Usuarios</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+                <a href="reportes.html" class="menu-item active"><div class="menu-left"><i class="fa-solid fa-chart-column"></i> Reportes</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+                <a href="justificaciones.html" class="menu-item"><div class="menu-left"><i class="fa-solid fa-clock"></i> Justificaciones</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+                <div style="flex-grow: 1;"></div>
+                <a href="#" class="menu-item" id="btnCerrarMenu"><div class="menu-left"><i class="fa-regular fa-circle-xmark"></i> Cerrar Sesión</div><i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="topbar">
+                <div class="search-bar"><i class="fa-solid fa-bars"></i><input type="text" placeholder="Hinted search text"></div>
+                <div class="profile-area">
+                    <i class="fa-regular fa-bell" style="font-size: 22px;"></i>
+                    <div class="profile-info"><i class="fa-solid fa-circle-user" style="font-size: 38px;"></i>
+                        <div><div style="font-weight: bold; font-size: 15px;" id="adminName">Admin</div><div style="font-size: 12px; color: #cbd5e1;">Administrador</div></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="header-actions">
+                <div class="page-title"><h2>Reportes y estadísticas</h2></div>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <button class="btn-blue"><i class="fa-solid fa-file-export"></i> Exportar estadísticas</button>
+                    <a href="landing_admin.html" style="color: white; text-align: center; text-decoration: none; font-size: 12px;"><i class="fa-solid fa-arrow-rotate-left" style="font-size: 20px; display: block; margin-bottom: 5px;"></i>Regresar</a>
+                </div>
+            </div>
+
+            <div class="filtros-container">
+                <div class="filtro-grupo">
+                    <label>Rango de fechas</label>
+                    <input type="text" class="filtro-input" value="01/05/2026 - 31/05/2026">
+                </div>
+                <div class="filtro-grupo">
+                    <label>División</label>
+                    <select class="filtro-input"><option>Todas las divisiones</option></select>
+                </div>
+                <div class="filtro-grupo">
+                    <label>Usuario</label>
+                    <select class="filtro-input"><option>Todos</option></select>
+                </div>
+                <div class="filtro-grupo">
+                    <label>Tipo de reporte</label>
+                    <select class="filtro-input"><option>Asistencias</option></select>
+                </div>
+                <div class="filtro-grupo" style="justify-content: flex-end;">
+                    <button class="btn-blue" style="margin-top: auto; padding: 10px 15px;"><i class="fa-solid fa-filter"></i> Aplicar filtros</button>
+                </div>
+            </div>
+
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="kpi-data"><p>Asistencias totales</p><h3>940</h3></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="fa-solid fa-user-xmark"></i></div>
+                    <div class="kpi-data"><p>Faltas</p><h3>50</h3></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="fa-solid fa-check-to-slot"></i></div>
+                    <div class="kpi-data"><p>Justificaciones</p><h3>10</h3></div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header"><span>Asistencias por día:</span> <select style="border:none; outline:none;"><option>Diario</option></select></div>
+                    <canvas id="barChart" height="100"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header"><span>Asistencias por área</span></div>
+                    <canvas id="pieChart" height="200"></canvas>
+                </div>
+                <div class="chart-card chart-full">
+                    <div class="chart-header"><span>Asistencias por hora:</span> <select style="border:none; outline:none;"><option>Por hora</option></select></div>
+                    <canvas id="areaChart" height="60"></canvas>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Nombres de usuario global
+        const usuarioLogueado = localStorage.getItem("usuario");
+        if (usuarioLogueado) document.getElementById("adminName").innerText = usuarioLogueado;
+        document.getElementById("btnCerrarMenu").addEventListener("click", () => { localStorage.clear(); window.location.href = "../index.html"; });
+
+        // Configuración Chart.js
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['01 de mayo', '06 de mayo', '11 de mayo', '21 de mayo', '31 de mayo'],
+                datasets: [
+                    { label: 'A', data: [350, 450, 400, 420, 310], backgroundColor: '#1d4ed8' },
+                    { label: 'B', data: [280, 200, 150, 400, 420], backgroundColor: '#dc2626' },
+                    { label: 'C', data: [150, 250, 350, 150, 430], backgroundColor: '#f97316' },
+                    { label: 'D', data: [200, 300, 100, 250, 200], backgroundColor: '#9333ea' }
+                ]
+            },
+            options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 600 } } }
+        });
+
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['DICT', 'DIMEI', 'DCB', 'DIE'],
+                datasets: [{ data: [300, 120, 120, 400], backgroundColor: ['#1d4ed8', '#3b82f6', '#60a5fa', '#93c5fd'] }]
+            },
+            options: { cutout: '60%', plugins: { legend: { position: 'left' } } }
+        });
+
+        const areaCtx = document.getElementById('areaChart').getContext('2d');
+        new Chart(areaCtx, {
+            type: 'line',
+            data: {
+                labels: ['6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '23:00'],
+                datasets: [{ label: 'Asistencias', data: [200, 50, 50, 150, 50, 200, 200, 50, 50, 50], backgroundColor: 'rgba(34, 197, 94, 0.2)', borderColor: '#22c55e', fill: true, tension: 0.1 }]
+            },
+            options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 200 } } }
+        });
+    </script>
+</body>
+</html>
