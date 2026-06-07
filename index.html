@@ -6,6 +6,24 @@
     <title>Login BioTrack</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    
+    <style>
+        /* Estilo sutil para el enlace de registro dentro de la tarjeta */
+        .link-registro {
+            display: inline-block;
+            margin-top: 25px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .link-registro:hover {
+            color: #3b82f6; /* Azul BioTrack */
+            text-decoration: underline;
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body class="login-bg">
 
@@ -23,7 +41,7 @@
 
             <div class="input-group">
                 <i class="fa-solid fa-magnifying-glass input-icon"></i>
-                <input type="text" placeholder="Número de empleado" class="entradaTexto" id="usuarioInput"> 
+                <input type="text" placeholder="Número de empleado (Correo)" class="entradaTexto" id="usuarioInput"> 
             </div>
             
             <div class="input-group">
@@ -43,15 +61,14 @@
 
             <button id="btnHuella" class="btn-pill" onclick="window.location.href='./pages/huella.html'">
                 <i class="fa-solid fa-fingerprint" style="margin-right: 8px; font-size: 18px;"></i> Huella digital
-            </button>   
+            </button>
+
+            <a href="./pages/registro.html" class="link-registro">
+                Se necesita crear una cuenta <strong>Regístrala aquí</strong>
+            </a>
         </div>
 
     </div>
-
-    <a href="./pages/registro.html" class="btn-regresar">
-        <i class="fa-solid fa-arrow-rotate-left icon-return"></i>
-        Regresar
-    </a>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="./js/supabase.js"></script>
